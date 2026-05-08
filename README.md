@@ -119,30 +119,17 @@ The test script:
 
 ## Use cases → file map
 
-| UC   | Description                  | File              | Key function                      |
-|------|------------------------------|-------------------|-----------------------------------|
-| UC-1 | User Registration            | db/auth.py        | `register_user`                   |
-| UC-2 | User Login                   | db/auth.py        | `login_user`                      |
-| UC-3 | View Profile                 | db/profile.py     | `view_profile`                    |
-| UC-4 | Edit Profile                 | db/profile.py     | `edit_profile`                    |
-| UC-5 | Follow Another User          | db/social.py      | `follow_user`                     |
-| UC-6 | Unfollow a User              | db/social.py      | `unfollow_user`                   |
-| UC-7 | View Following / Followers   | db/social.py      | `get_following` / `get_followers` |
-| UC-8 | Mutual Connections           | db/social.py      | `get_mutual_connections`          |
-| UC-9 | Friend Recommendations       | db/social.py      | `recommend_friends`               |
-| UC-10| Search Users                 | db/search.py      | `search_users`                    |
-| UC-11| Explore Popular Users        | db/search.py      | `get_popular_users`               |
+| UC   | Description                  | File                    | Key function                      |
+|------|------------------------------|-------------------------|-----------------------------------|
+| UC-1 | User Registration            | backend/user_service.py | `register_user`                   |
+| UC-2 | User Login                   | backend/user_service.py | `login_user`                      |
+| UC-3 | View Profile                 | backend/user_service.py | `view_profile`                    |
+| UC-4 | Edit Profile                 | backend/user_service.py | `edit_profile`                    |
+| UC-5 | Follow Another User          | backend/graph_service.py| `follow_user`                     |
+| UC-6 | Unfollow a User              | backend/graph_service.py| `unfollow_user`                   |
+| UC-7 | View Following / Followers   | backend/graph_service.py| `get_following` / `get_followers` |
+| UC-8 | Mutual Connections           | backend/graph_service.py| `get_mutual_connections`          |
+| UC-9 | Friend Recommendations       | backend/graph_service.py| `recommend_friends`               |
+| UC-10| Search Users                 | backend/user_service.py | `search_users`                    |
+| UC-11| Explore Popular Users        | backend/graph_service.py| `get_popular_users`               |
 
-## Notes on the Cypher
-
-- Registrations get **negative** `userId` values so they never collide
-  with the SNAP non-negative range.
-- Passwords are stored as **bcrypt hashes**, never plaintext.
-- Follow uses `MERGE` so it's idempotent.
-- Friend recommendations rank by `mutualCount` (number of your friends
-  who follow the candidate) — the more shared connections, the higher
-  the score.
-- Mutual connections use the classic graph pattern
-  `(A)-[:FOLLOWS]->(M)<-[:FOLLOWS]-(B)`.
-=======
-# cs-150
